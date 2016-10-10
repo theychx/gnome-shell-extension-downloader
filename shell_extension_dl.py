@@ -47,15 +47,18 @@ def main(url):
         count += 1
         print ('%s : %s' % (count, vers))
 
-    while True:
-        try:
-            choose = int(input('Choose [1-%s]: ' % count).strip())
-            if choose < 1 or choose > count:
-                raise ValueError
-        except ValueError:
-            print ('invalid choice')
-        else:
-            break
+    if len(vlist) > 1:
+        while True:
+            try:
+                choose = int(input('Choose [1-%s]: ' % count).strip())
+                if choose < 1 or choose > count:
+                    raise ValueError
+            except ValueError:
+                print ('invalid choice')
+            else:
+                break
+    else:
+        choose = 1
 
     choice = vlist[choose - 1]
     selected = GNOME_URL + INFO + extension + VERSION + choice
