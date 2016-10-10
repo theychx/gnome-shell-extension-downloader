@@ -42,12 +42,11 @@ def main(url):
 
     print ('"%s" available for these versions of gnome-shell:' % name)
 
-    count = 0
-    for vers in vlist:
-        count += 1
-        print ('%s : %s' % (count, vers))
+    count = len(vlist)
+    for c in range(count):
+        print ('%s : %s' % (c + 1, vlist[c]))
 
-    if len(vlist) > 1:
+    if count > 1:
         while True:
             try:
                 choose = int(input('Choose [1-%s]: ' % count).strip())
