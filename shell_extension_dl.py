@@ -72,10 +72,9 @@ def main(url):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        try:
-            main(sys.argv[1])
-        except InvalidUrlError:
-            sys.exit('invalid url')
-    else:
+    try:
+        main(sys.argv[1])
+    except InvalidUrlError:
+        sys.exit('invalid url')
+    except IndexError:
         sys.exit('please specify an url')
