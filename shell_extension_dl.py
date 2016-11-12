@@ -38,37 +38,13 @@ def main(url):
 
     vlist = list(versions['shell_version_map'].keys())
     vlist.sort(key=lambda s: [int(u) for u in s.split('.')])
-    name = versions['name']
-
-    print ('"%s" available for these versions of gnome-shell:' % name)
-
-    count = len(vlist)
-    for c in range(count):
-        print ('%s : %s' % (c + 1, vlist[c]))
-
-    if count > 1:
-        while True:
-            try:
-                choose = int(input('Choose [1-%s]: ' % count).strip())
-                if choose < 1 or choose > count:
-                    raise ValueError
-            except ValueError:
-                print ('invalid choice')
-            else:
-                break
-    else:
-        choose = 1
-
-    choice = vlist[choose - 1]
-    selected = GNOME_URL + INFO + extension + VERSION + choice
+    selected = GNOME_URL + INFO + extension + VERSION + vlist[-1]
 
     with urlopen(selected) as response:
         dl_url = GNOME_URL + json.load(reader(response))['download_url']
     with urlopen(dl_url) as response, \
          open(versions['uuid'] + '.zip', 'wb') as dl_file:
         shutil.copyfileobj(response, dl_file)
-
-    print ('"%s" for "%s" downloaded OK' % (name, choice))
 
 
 if __name__ == '__main__':
